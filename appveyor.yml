@@ -1,0 +1,9 @@
+﻿clone_depth: 1
+version: '{branch}-{build}'
+image: Visual Studio 2017
+configuration: Debug
+before_build:
+  - cmd: nuget restore -verbosity quiet
+build:
+  project: DuckyVisual.sln
+  verbosity: minimal
