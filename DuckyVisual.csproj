@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HidSharp">
-      <HintPath>..\..\..\..\Downloads\HIDSharp20\bin\HidSharp.dll</HintPath>
+    <Reference Include="HidSharp, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\HidSharp.2.0.2\lib\net35\HidSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,7 +57,10 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="App.config" />
+    <None Include="appveyor.yml" />
+    <None Include="packages.config" />
     <None Include="README.MD" />
+    <None Include="ressources\README.MD" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ressources\extract_raw.py" />
