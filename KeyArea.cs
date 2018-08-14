@@ -16,6 +16,12 @@ namespace DuckyVisual
             HexProp = hexProp;
         }
 
+        public void ColorKey(string key, Color color)
+        {
+            if (KeyMap.ContainsKey(key))
+                KeyMap[key] = color;
+        }
+
         public void ColorAllKeys(Color color)
         {
             foreach (var key in KeyMap.Keys.ToList())
@@ -29,8 +35,9 @@ namespace DuckyVisual
             string data = HexProp;
             foreach (KeyValuePair<string, Color> entry in KeyMap)
             {
-                data.Replace(entry.Key, entry.Value.GetHexString());
+                data = data.Replace(entry.Key, entry.Value.GetHexString());
             }
+            data = data.Replace(" ", "");
             return data;
         }
     }

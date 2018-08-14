@@ -21,18 +21,53 @@ namespace DuckyVisual
         private KeyArea keyArea0D;
         private List<KeyArea> listKeyArea = new List<KeyArea>();
 
+        private const string OPEN_PAYLOAD = "ressources\\open_extract.txt";
+        private const string CM1_PAYLOAD = "ressources\\cm1_extract.txt";
+        private const string CLOSE_PAYLOAD = "ressources\\close_extract.txt";
+
         public DuckyInterface(HIDDevice device)
         {
             Device = device;
             PopulateKeyMaps();
-            OpenPayload();
+            SendPayload(OPEN_PAYLOAD);
             Thread.Sleep(4000);
-            Cm1Payload();
+            SendPayload(CM1_PAYLOAD);
+
         }
 
-        private void OpenPayload()
+        public void ColorKey(string key, Color color)
         {
-            string[] readText = File.ReadAllLines("ressources\\open_extract.txt");
+            key = "\"" + key + "\"";
+            foreach(KeyArea ka in listKeyArea)
+            {
+                ka.ColorKey(key, color);
+            }
+        }
+
+        public void ColorAllKeys(Color color)
+        {
+            foreach (KeyArea ka in listKeyArea)
+            {
+                ka.ColorAllKeys(color);
+            }
+        }
+
+        public void UpdateColors()
+        {
+            foreach (KeyArea ka in listKeyArea)
+            {
+                Device.write(Util.StringToByteArrayFastest(ka.GetHexDataProp()));
+            }
+        }
+
+        public void SendClosePayload()
+        {
+            SendPayload(CLOSE_PAYLOAD);
+        }
+
+        private void SendPayload(string payload)
+        {
+            string[] readText = File.ReadAllLines(payload);
             foreach (string s in readText)
             {
                 string hex = s;
@@ -40,29 +75,7 @@ namespace DuckyVisual
                 Device.write(Util.StringToByteArrayFastest(hex));
             }
         }
-
-        private void Cm1Payload()
-        {
-            string[] readText = File.ReadAllLines("ressources\\cm1_extract.txt");
-            foreach (string s in readText)
-            {
-                string hex = s;
-                hex = hex.Replace(" ", "");
-                Device.write(Util.StringToByteArrayFastest(hex));
-            }
-        }
-
-        public void ClosePayload()
-        {
-            string[] readText = File.ReadAllLines("ressources\\close_extract.txt");
-            foreach (string s in readText)
-            {
-                string hex = s;
-                hex = hex.Replace(" ", "");
-                Device.write(Util.StringToByteArrayFastest(hex));
-            }
-        }
-
+        
         private void PopulateKeyMaps()
         {
             Color color = new Color(0, 0, 0);

@@ -23,7 +23,16 @@ namespace DuckyVisual
 
         public string GetHexString()
         {
-            return Red.ToString("X") + Green.ToString("X") + Blue.ToString("X");
+            string red = Red.ToString("X");
+            if (red.Length == 1)
+                red = "0" + red;
+            string green = Green.ToString("X");
+            if (green.Length == 1)
+                green = "0" + green;
+            string blue = Blue.ToString("X");
+            if (blue.Length == 1)
+                blue = "0" + blue;
+            return red + green + blue;
         }
     }
 }

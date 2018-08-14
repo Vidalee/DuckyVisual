@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DuckyVisual
@@ -20,7 +21,7 @@ namespace DuckyVisual
             //This is only triggered if the user peacefully terminate the program !! (hint: press enter in the console)
             if (device != null)
             {
-                di.ClosePayload();
+                di.SendClosePayload();
                 device.close();
             }
         }
@@ -51,6 +52,14 @@ namespace DuckyVisual
             device = new HIDDevice(devicePath, false);
 
             di = new DuckyInterface(device);
+
+            //Instanciate the web server
+
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                HTTPServer server = new HTTPServer(di);
+            }).Start();
 
             Console.ReadLine();
         }

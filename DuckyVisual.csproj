@@ -48,6 +48,7 @@
     <Compile Include="Color.cs" />
     <Compile Include="DuckyInterface.cs" />
     <Compile Include="HIDInterface.cs" />
+    <Compile Include="HTTPServer.cs" />
     <Compile Include="KeyArea.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
