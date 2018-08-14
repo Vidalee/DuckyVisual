@@ -1,4 +1,4 @@
-﻿# DuckyVisual [![Build status](https://ci.appveyor.com/api/projects/status/duoflic3rusj83md?svg=true)](https://ci.appveyor.com/project/Vidalee/duckyvisual)
+﻿# DuckyVisual [![Build status](https://ci.appveyor.com/api/projects/status/duoflic3rusj83md?svg=true)](https://ci.appveyor.com/project/Vidalee/duckyvisual) [Download](https://github.com/Vidalee/DuckyVisual/releases)
 DuckyVisual is an application that allows you to control the lighting color of each one of your keys. 
 This application currently only supports the Shine 6 keyboard, but theorically every keyboard made by Ducky after the Shine 6 should be supported, however since I don't have these under my hand, they're not.
 If you have one of these keyboards, reach me out at reachlink and I'll gladly make it supported !
