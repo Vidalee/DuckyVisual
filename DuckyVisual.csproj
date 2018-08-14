@@ -54,7 +54,9 @@
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="App.config" />
+    <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ressources\extract_raw.py" />
