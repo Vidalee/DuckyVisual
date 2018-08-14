@@ -11,4 +11,34 @@ Just make POST calls to it with the help if the doc and you're done !
 
 ## API documentation
 
-¯\\_(ツ)_/¯
+### `/colorKey`
+
+Colors the desired key with the color you want. It takes 4 args:
+* `key`: The key you want to light up
+* `r`: Value of the red lightning
+* `g`: Value of the green lightning
+* `b`: Value of the blue lightning
+ 
+Example : `http://localhost:17742/colorKey?key=G&r=0&g=0&b=255` will color the 'G' key in blue.
+
+### `/colorAllKeyboard`
+
+Colors all the keyboard with the desired color. It takes 3 args:
+* `r`: Value of the red lightning
+* `g`: Value of the green lightning
+* `b`: Value of the blue lightning
+
+Example : `http://localhost:17742/colorAllKeyboard?r=0&g=0&b=255` will color all your keyboard in blue.
+
+### `/options`
+
+Adjust the options to your needs.
+* `autoUpdate`: Set it to false and the keyboard colors won't update automatically after using `/colorKey` or `/colorAllKeyboard`, you will need to use `/update`. Constructing the colors of the keys and then updating all of them may increase performance if you update the keyboard very frequently.
+
+Example : `http://localhost:17742/options?autoUpdate=false` will disable the autoUpdate.
+
+### `/update`
+
+Manually update the colors of the keyboard
+
+Example : `http://localhost:17742/update` will update the colors of the keyboard.

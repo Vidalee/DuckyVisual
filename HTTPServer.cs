@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace DuckyVisual
 {
+
+    //Not really satisfied with this class :v
+
     class HTTPServer
     {
-
+        private bool autoUpdate = true;
+        
         private DuckyInterface DI;
         public HTTPServer(DuckyInterface di)
         {
@@ -40,17 +44,38 @@ namespace DuckyVisual
                 HttpListenerContext context = listener.GetContext();
                 Parse(context);
             }
-            
-
         }
 
         private void Parse(HttpListenerContext context)
         {
             string path = context.Request.RawUrl.Substring(1);
 
-            if (path.StartsWith("key"))
+            if (path.StartsWith("colorKey"))
                 ColorKey(context);
+            if (path.StartsWith("colorAllKeyboard"))
+                ColorAllKeyboard(context);
+            if (path.StartsWith("options"))
+                Options(context);
+            if (path.StartsWith("update"))
+                Options(context);
 
+            HttpListenerRequest request = context.Request;
+            // Obtain a response object.
+            HttpListenerResponse response = context.Response;
+            // Construct a response.
+            string responseString = "Request received.";
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+            // Get a response stream and write the response to it.
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+            // Close the output stream.
+            output.Close();
+        }
+
+        private void Update(HttpListenerContext context)
+        {
+            Program.di.UpdateColors();
         }
 
         private void ColorKey(HttpListenerContext context)
@@ -62,18 +87,13 @@ namespace DuckyVisual
                 Dictionary<string, string> args = GetParams(request.RawUrl);
                 if(args.ContainsKey("key") && args.ContainsKey("r") && args.ContainsKey("g") && args.ContainsKey("b"))
                 {
-                    Console.WriteLine("zgc");
-
                     try
                     {
-                        Console.WriteLine("zgd");
-                        foreach (KeyValuePair<string, string> entry in args)
-                        {
-                            Console.WriteLine(entry.Key + " | " + entry.Value);
-                        }
                         Color color = new Color(Int32.Parse(args["r"]), Int32.Parse(args["g"]), Int32.Parse(args["b"]));
                         Program.di.ColorKey(args["key"], color);
-                        Program.di.UpdateColors();
+
+                        if (autoUpdate)
+                            Program.di.UpdateColors();
                     }
                     catch(Exception e)
                     {
@@ -83,6 +103,47 @@ namespace DuckyVisual
             }
         }
 
+        private void ColorAllKeyboard(HttpListenerContext context)
+        {
+            HttpListenerRequest request = context.Request;
+            if (request.RawUrl.Contains("&") && request.RawUrl.Contains("?") && request.RawUrl.Contains("="))
+            {
+
+                Dictionary<string, string> args = GetParams(request.RawUrl);
+                if (args.ContainsKey("r") && args.ContainsKey("g") && args.ContainsKey("b"))
+                {
+                    try
+                    {
+                        Color color = new Color(Int32.Parse(args["r"]), Int32.Parse(args["g"]), Int32.Parse(args["b"]));
+                        Program.di.ColorAllKeys(color);
+
+                        if (autoUpdate)
+                            Program.di.UpdateColors();
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void Options(HttpListenerContext context)
+        {
+            HttpListenerRequest request = context.Request;
+            if (request.RawUrl.Contains("?") && request.RawUrl.Contains("="))
+            {
+
+                Dictionary<string, string> args = GetParams(request.RawUrl);
+                if (args.ContainsKey("autoUpdate"))
+                {
+                    if (Boolean.Parse(args["autoUpdate"]))
+                        autoUpdate = true;
+                    else
+                        autoUpdate = false;
+                }
+            }
+        }
         private Dictionary<string, string> GetParams(string uri)
         {
             var matches = Regex.Matches(uri, @"[\?&](([^&=]+)=([^&=#]*))", RegexOptions.Compiled);

@@ -32,7 +32,6 @@ namespace DuckyVisual
             SendPayload(OPEN_PAYLOAD);
             Thread.Sleep(4000);
             SendPayload(CM1_PAYLOAD);
-
         }
 
         public void ColorKey(string key, Color color)
@@ -78,6 +77,8 @@ namespace DuckyVisual
         
         private void PopulateKeyMaps()
         {
+            //Nice wall
+
             Color color = new Color(0, 0, 0);
             Dictionary<string, Color> keyMap00 = new Dictionary<string, Color>();
             Dictionary<string, Color> keyMap02 = new Dictionary<string, Color>();
