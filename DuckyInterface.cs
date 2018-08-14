@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuckyVisual.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace DuckyVisual
         private KeyArea keyArea0D;
         private List<KeyArea> listKeyArea = new List<KeyArea>();
 
-        private const string OPEN_PAYLOAD = "ressources\\open_extract.txt";
-        private const string CM1_PAYLOAD = "ressources\\cm1_extract.txt";
-        private const string CLOSE_PAYLOAD = "ressources\\close_extract.txt";
+        private string OPEN_PAYLOAD = Resources.open_extract;
+        private string CM1_PAYLOAD = Resources.cm1_extract;
+        private string CLOSE_PAYLOAD = Resources.close_extract;
 
         public DuckyInterface(HIDDevice device)
         {
@@ -66,7 +67,7 @@ namespace DuckyVisual
 
         private void SendPayload(string payload)
         {
-            string[] readText = File.ReadAllLines(payload);
+            string[] readText = payload.Split(new[] { Environment.NewLine },StringSplitOptions.None);
             foreach (string s in readText)
             {
                 string hex = s;
