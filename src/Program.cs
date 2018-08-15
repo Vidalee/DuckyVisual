@@ -1,12 +1,6 @@
-﻿using HidSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace DuckyVisual
 {
@@ -53,15 +47,22 @@ namespace DuckyVisual
 
             di = new DuckyInterface(device);
 
-            //Instanciate the web server
-
+            //Press enter to safely exit the program..
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                HTTPServer server = new HTTPServer(di);
+                Console.ReadLine();
+                di.SendClosePayload();
+                device.close();
+                Environment.Exit(4);
             }).Start();
 
-            Console.ReadLine();
+            //Instanciate the web server
+
+            Thread.CurrentThread.IsBackground = true;
+            HTTPServer server = new HTTPServer(di);
+           
+
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using DuckyVisual.Properties;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace DuckyVisual
 {
@@ -57,6 +53,7 @@ namespace DuckyVisual
             foreach (KeyArea ka in listKeyArea)
             {
                 Device.write(Util.StringToByteArrayFastest(ka.GetHexDataProp()));
+                byte[] readData = Device.read();
             }
         }
 

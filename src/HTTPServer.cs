@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DuckyVisual
 {
@@ -13,7 +10,7 @@ namespace DuckyVisual
 
     class HTTPServer
     {
-        private bool autoUpdate = true;
+        private bool autoUpdate = false;
         
         private DuckyInterface DI;
         public HTTPServer(DuckyInterface di)
@@ -57,7 +54,7 @@ namespace DuckyVisual
             if (path.StartsWith("options"))
                 Options(context);
             if (path.StartsWith("update"))
-                Options(context);
+                Update(context);
 
             HttpListenerRequest request = context.Request;
             // Obtain a response object.
