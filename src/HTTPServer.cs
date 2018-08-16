@@ -10,7 +10,7 @@ namespace DuckyVisual
 
     class HTTPServer
     {
-        private bool autoUpdate = false;
+        private bool autoUpdate = true;
         
         private DuckyInterface DI;
         public HTTPServer(DuckyInterface di)
