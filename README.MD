@@ -10,8 +10,10 @@ What this application do is that it basically emulates the Ducky's software in o
 
 To change the color of the keys, a REST API server is launched on your computer, on the port 17742.
 
-Just make POST calls to it with the help if the doc and you're done !
+Just make POST calls to it with the help of the doc and you're done !
 
+Here is an example of what you can do with this app  
+[![DuckyVisual demo](https://res.cloudinary.com/marcomontalbano/image/upload/v1589285638/video_to_markdown/images/youtube--GvHWxYLzJRg-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=GvHWxYLzJRg "DuckyVisual demo")
 ## API documentation
 
 ### `/colorKey`
